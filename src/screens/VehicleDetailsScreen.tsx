@@ -1,4 +1,3 @@
-// src/screens/VehicleDetailsScreen.tsx
 
 import React from 'react';
 import { 
@@ -17,45 +16,42 @@ import { COLORS } from '../utils/colors';
 import Button from '../components/Button';
 import { useVehicleStore } from '../store/vehicleStore';
 import { formatCurrency } from '../utils/helpers';
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { VehicleDetailsScreenNavigationProp } from '../types/navigation';
+import { RootStackParamList } from '../types/navigation';
 
 
-/*type RootStackParamList = {
-  VehicleDetails: { vehicleId: string };
-};
 
-type VehicleDetailsScreenProps = NativeStackScreenProps<RootStackParamList, "VehicleDetails">;
-*/
-interface VehicleDetailsScreenProps {
+import { vehicleImages } from '@assets/images/vehicleImages';
+
+/*interface VehicleDetailsScreenProps {
   navigation: NativeStackNavigationProp<any>;
-  route: RouteProp<{ Vehicle: { vehicleId: string } }>;
+  route: RouteProp<{ VehicleDetails: { vehicleId: string } }, 'VehicleDetails'>;
+}
+*/
+
+
+interface VehicleDetailsScreenProps {
+  navigation: VehicleDetailsScreenNavigationProp;
+  route: RouteProp<RootStackParamList, 'VehicleDetails'>;
 }
 
 const VehicleDetailsScreen: React.FC<VehicleDetailsScreenProps> = ({ navigation, route }) => {
   const { vehicleId } = route.params;
+ 
   const { vehicles } = useVehicleStore();
   const vehicle = vehicles.find(v => v.id === vehicleId);
-  console.log("yooooooooo", vehicle?.image)
   
   if (!vehicle) {
-    
-    
     return (
       <SafeAreaView style={styles.container}>
         <Text style={styles.errorText}>Vehicle not found</Text>
         <Button title="Go Back" onPress={() => navigation.goBack()} />
-        
       </SafeAreaView>
     );
-  }else{
-    console.log("yooooooooo", vehicle?.image)
   }
   
   return (
-    
-    
     <SafeAreaView style={styles.container}>
-      
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
           <Ionicons name="arrow-back" size={24} color={COLORS.text} />
@@ -67,10 +63,11 @@ const VehicleDetailsScreen: React.FC<VehicleDetailsScreenProps> = ({ navigation,
       </View>
       
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Image source= {require("../../assets/images/cars/bmw-x5.jpg")} style={styles.carImage} />
+        <Image 
+                  source={vehicleImages[vehicle.imageKey as keyof typeof vehicleImages]} 
+                  style={styles.carImage}
+              />
         
-        
-      
         <View style={styles.infoSection}>
           <View style={styles.infoHeader}>
             <View>
@@ -135,15 +132,20 @@ const VehicleDetailsScreen: React.FC<VehicleDetailsScreenProps> = ({ navigation,
           </View>
         </View>
       </ScrollView>
-     
+      
       <View style={styles.footer}>
         <View style={styles.priceFooterContainer}>
           <Text style={styles.priceLabel}>Price</Text>
           <Text style={styles.priceBig}>{formatCurrency(vehicle.pricePerDay)}</Text>
         </View>
         <Button 
-          title="Book Now" 
+          title="With driver" 
           onPress={() => navigation.navigate('Booking', { vehicleId: vehicle.id })} 
+          style={styles.bookButton}
+        />
+        <Button 
+          title="without Now" 
+          onPress={() => navigation.navigate('Drivers')} 
           style={styles.bookButton}
         />
       </View>
@@ -151,10 +153,6 @@ const VehicleDetailsScreen: React.FC<VehicleDetailsScreenProps> = ({ navigation,
   );
 };
 
-
-
-
-console.log()
 const styles = StyleSheet.create({
   container: {
     flex: 1,

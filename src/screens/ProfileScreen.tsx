@@ -1,4 +1,4 @@
-// src/screens/ProfileScreen.tsx
+
 
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image } from 'react-native';
@@ -16,18 +16,35 @@ const ProfileScreen: React.FC = () => {
     { icon: 'help-circle-outline', title: 'Aide et support', screen: 'Support' },
   ];
 
+  const profileImage = "https://lh3.googleusercontent.com/a/ACg8ocLPBpiO162KoSOj0kwSHsJzbq2AE0cWeCXXndUR67WruxE8I6U=s288-c-no";
+    const handleCommentPress = () => {
+    console.log('Icône commentaires pressée');
+    // Navigation vers l'écran des commentaires ou ouverture d'un modal
+    // navigation.navigate('Comments');
+  };
+
+    const handleProfilePress = () => {
+    console.log('Photo de profil pressée');
+    // Navigation vers le profil utilisateur
+    // navigation.navigate('Profile');
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Profil" showNotification={false} />
+      <Header
+        onCommentPress={handleCommentPress}
+        onProfilePress={handleProfilePress}
+        profileImage={profileImage}
+      />
       
       <View style={styles.profileHeader}>
         <View style={styles.avatarContainer}>
           <View style={styles.avatar}>
-            <Text style={styles.avatarText}>JD</Text>
+            <Text style={styles.avatarText}>BA</Text>
           </View>
         </View>
-        <Text style={styles.name}>John Doe</Text>
-        <Text style={styles.email}>john.doe@example.com</Text>
+        <Text style={styles.name}>Bala ANdegue</Text>
+        <Text style={styles.email}>bala@gmail.com</Text>
         <TouchableOpacity style={styles.editButton}>
           <Text style={styles.editButtonText}>Modifier le profil</Text>
         </TouchableOpacity>

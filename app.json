@@ -12,6 +12,25 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "plugins": [
+      [
+        "expo-asset",
+        {
+          "extensions": [
+            "jpg",
+            "png",
+            "jpeg",
+            "webp"
+          ],
+          "includePaths": [
+            "./assets/images/**"
+          ]
+        }
+      ]
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -19,7 +38,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.easyrent"
     },
     "web": {
       "favicon": "./assets/favicon.png"

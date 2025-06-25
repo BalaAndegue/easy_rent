@@ -1,48 +1,48 @@
 // src/components/Header.tsx
 
 import React from 'react';
-
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'; // ✅ Ajout de `TextInput`
-
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../utils/colors';
 
 interface HeaderProps {
-  title: string;
-  placeholder?: string;
-  showNotification?: boolean;
-  onMenuPress?: () => void;
-  onNotificationPress?: () => void;
+  onCommentPress?: () => void;
+  onProfilePress?: () => void;
+  profileImage?: string; // URL ou require() de l'image de profil
 }
 
 const Header: React.FC<HeaderProps> = ({ 
-  title, 
-  showNotification = true, 
-  onMenuPress, 
-  onNotificationPress ,
-  placeholder
+  onCommentPress, 
+  onProfilePress,
+  profileImage 
 }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.logo}>{title}</Text>
-      {/* ✅ Ajout du champ de recherche */}
+      {/* Icône de l'application à la place du titre */}
+
+      <Image
+        source={{ uri: 'https://i.pinimg.com/736x/51/2f/ee/512fee76586dc7070009826f55207dbe.jpg' }}
+        style={{ width: 80, height: 80 }}
+        resizeMode="contain"
+      />
       
-      {placeholder && (
-        <TextInput 
-          style={styles.searchBar} 
-          placeholder={placeholder} 
-          placeholderTextColor={COLORS.textLight}
-        />
-      )}
+      
       <View style={styles.iconContainer}>
-        {showNotification && (
-          <TouchableOpacity onPress={onNotificationPress} style={styles.iconButton}>
-            <Ionicons name="notifications" size={24} color={COLORS.primary} />
-          </TouchableOpacity>
-        )}
+        {/* Icône de commentaires à la place des notifications 
+        <TouchableOpacity onPress={onCommentPress} style={styles.iconButton}>
+          <Ionicons name="chatbubble-ellipses" size={24} color={COLORS.primary} />
+        </TouchableOpacity> */}
         
-        <TouchableOpacity onPress={onMenuPress} style={styles.iconButton}>
-          <Ionicons name="menu" size={24} color={COLORS.black} />
+        {/* Photo de profil à la place du menu */}
+        <TouchableOpacity onPress={onProfilePress} style={styles.iconButton}>
+          {profileImage ? (
+            <Image 
+              source={typeof profileImage === 'string' ? { uri: profileImage } : profileImage} 
+              style={styles.profileImage} 
+            />
+          ) : (
+            <Ionicons name="person-circle" size={24} color={COLORS.black} />
+          )}
         </TouchableOpacity>
       </View>
     </View>
@@ -54,14 +54,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: 10,
+    paddingVertical: 1,
     backgroundColor: COLORS.white,
-  },
-  logo: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: COLORS.primary,
   },
   iconContainer: {
     flexDirection: 'row',
@@ -70,17 +65,11 @@ const styles = StyleSheet.create({
   iconButton: {
     marginLeft: 16,
   },
-
-searchBar: { // ✅ Ajout du style manquant
-  flex: 1,
-  marginHorizontal: 16,
-  paddingVertical: 6,
-  paddingHorizontal: 12,
-  backgroundColor: COLORS.lightGrey,
-  borderRadius: 8,
-  fontSize: 14,
-},
-  
+  profileImage: {
+    width: 35,
+    height: 35,
+    borderRadius: 16,
+  },
 });
 
 export default Header;

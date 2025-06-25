@@ -6,6 +6,7 @@ import VehiclesScreen from '../screens/VehiclesScreen';
 import DashboardScreen from '../screens/DashboardScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import TabBar from '../components/TaBar';
+import DriversScreen from '../screens/DriverScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,7 +19,7 @@ const TabNavigator = () => {
       }}
     >
       <Tab.Screen name="Vehicles" component={VehiclesScreen} />
-      <Tab.Screen name="Orders" component={DashboardScreen} options={{ tabBarLabel: "Orders" }} />
+      <Tab.Screen name="Orders" component={DriversScreen} options={{ tabBarLabel: "Drivers" }} />
       <Tab.Screen name="Dashboard" component={DashboardScreen} />
       <Tab.Screen name="Support" component={DashboardScreen} options={{ tabBarLabel: "Support" }} />
       <Tab.Screen name="Profile" component={ProfileScreen} />

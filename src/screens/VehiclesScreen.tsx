@@ -1,4 +1,4 @@
-// src/screens/VehiclesScreen.tsx
+
 
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native';
@@ -13,11 +13,15 @@ import { COLORS } from '../utils/colors';
 import { useVehicleStore } from '../store/vehicleStore';
 import { Vehicle } from '../types';
 
+
+import FloatingActionButton from '../components/FloatingActionButton';
+
+
 interface VehiclesScreenProps {
   navigation: NativeStackNavigationProp<any>;
 }
 
-    // src/screens/VehiclesScreen.tsx (suite)
+    
 
 const VehiclesScreen: React.FC<VehiclesScreenProps> = ({ navigation }) => {
     const { filteredVehicles, activeTab, setActiveTab, filters, setFilters, applyFilters } = useVehicleStore();
@@ -38,10 +42,29 @@ const VehiclesScreen: React.FC<VehiclesScreenProps> = ({ navigation }) => {
       applyFilters();
       setIsFilterVisible(false);
     };
-    
+    const profileImage = "https://lh3.googleusercontent.com/a/ACg8ocLPBpiO162KoSOj0kwSHsJzbq2AE0cWeCXXndUR67WruxE8I6U=s288-c-no";
+    const handleCommentPress = () => {
+    console.log('Icône commentaires pressée');
+    // Navigation vers l'écran des commentaires ou ouverture d'un modal
+    // navigation.navigate('Comments');
+  };
+
+    const handleProfilePress = () => {
+    //console.log('Photo de profil pressée');
+    // Navigation vers le profil utilisateur
+    navigation.navigate('Profile');
+  };
+
     return (
       <SafeAreaView style={styles.container}>
-        <Header title="EASY RENT" />
+        
+
+
+        <Header
+        onCommentPress={handleCommentPress}
+        onProfilePress={handleProfilePress}
+        profileImage={profileImage}
+      />
         <SearchBar title="Easy-rent" placeholder="Search something here" />
         
 
@@ -81,7 +104,7 @@ const VehiclesScreen: React.FC<VehiclesScreenProps> = ({ navigation }) => {
         
         <FlatList
           data={filteredVehicles}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => String(item.id)}
           contentContainerStyle={styles.listContainer}
           renderItem={({ item }) => (
             <CarCard
@@ -90,6 +113,14 @@ const VehiclesScreen: React.FC<VehiclesScreenProps> = ({ navigation }) => {
             />
           )}
         />
+
+        <FloatingActionButton
+          onPress={() => console.log('Pressed')}
+          iconName="chatbubble" // ou "chatbubble", "camera", etc.
+          variant="primary"
+          size="large"
+        />
+      
       </SafeAreaView>
     );
   };

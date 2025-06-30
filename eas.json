@@ -1,0 +1,36 @@
+{
+  "build": {
+    "preview": {
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease",
+          "env": {
+          "ORG_GRADLE_PROJECT_javaToolchainVersion": "17",
+          "ORG_GRADLE_PROJECT_kotlinVersion": "1.9.22"
+        }
+      },
+      "distribution": "internal",
+      "env": {
+        "ENV": "staging"
+      }
+    },
+    "production": {
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:bundleRelease",
+        "env": {
+          "ORG_GRADLE_PROJECT_javaToolchainVersion": "17",
+          "ORG_GRADLE_PROJECT_kotlinVersion": "1.9.22"
+        }
+      },
+      "autoIncrement": true,
+      "env": {
+        "ENV": "production"
+      }
+    }
+  },
+  "cli": {
+    "version": ">= 5.0.0",
+    "appVersionSource": "remote"
+  }
+}

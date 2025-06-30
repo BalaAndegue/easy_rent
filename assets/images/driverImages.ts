@@ -1,5 +1,5 @@
 export const driverImages = {
-  'chauffeur': require('./cars/chauffeur.png'),
+  'chauffeur': require('./cars/chauffeur.jpg'),
   'chauffeur1': require('./cars/chauffeur1.jpg'),
   'chauffeur2': require('./cars/chauffeur2.jpg'),
   'chauffeur4': require('./cars/chauffeur4.jpg'),
